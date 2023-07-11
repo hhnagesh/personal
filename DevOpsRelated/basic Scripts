@@ -1,0 +1,62 @@
+numbers=(5 2 8 9 1 7)
+largest=$(echo "${numbers[@]}" | tr ' ' '\n' | sort -n | tail -1)
+echo "The largest number is: $largest"
+--------------------
+numbers=(5 2 8 9 1 7)
+smallest=$(echo "${numbers[@]}" | tr ' ' '\n' | sort -n | head -1)  || printf '%s\n' "${numbers[@]}" | sort -n | head -n 1
+echo "The smallest number is: $smallest"
+-------------------------
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cron-job
+spec:
+  template:
+    metadata:
+      name: cron-job
+    spec:
+      containers:
+      - name: cron-job
+        image: alpine
+        command: ["/bin/sh", "-c", "echo Running cron job && crond && crontab /etc/cron.d/my-cron && tail -f /var/log/cron.log"]
+        volumeMounts:
+        - name: cron-config
+          mountPath: /etc/cron.d/
+      volumes:
+      - name: cron-config
+        configMap:
+          name: cron-config
+  restartPolicy: OnFailure
+  ------------
+
+-----------------------------------
+#!/bin/bash
+
+# Flink API endpoint
+FLINK_API_URL="curl http://172.21.6.3:8081/jobs/overview"
+
+echo "Flink: $FLINK_API_URL"
+# Fetch all jobs from Flink
+JOB_STATUS=$(curl -s $FLINK_API_URL)
+
+echo "Job Status: $JOB_STATUS"
+
+# Parse the JSON response to check for failed jobs
+
+FAILED_JOBS=$(echo "$JOB_STATUS" | jq -r '.jobs[] | select(.state == "FAILED") | .name')
+#FAILED_JOBS=$(echo "$JOB_STATUS" | jq  '.jobs[] |.state' flinkjobs.json)
+
+echo "FailedJobs $FAILED_JOBS"
+
+#FAILED_JOBS=$(echo "$JOB_STATUS" | jq -r '.jobs[] | select(.state == "FAILED") | .name')
+# Send email if any job has failed
+if [ -n "$FAILED_JOBS" ]; then
+  EMAIL_BODY="There are failed jobs on Flink."
+  echo "$EMAIL_BODY Sending email notification."
+  echo "Failed jobs: $FAILED_JOBS" | mail -s "Flink Job Failure Notification Europe" -r "Monitor.Optimus@optimusfintech.com" Babu.Mohan@optimusfintech.com <<< "$EMAIL_BODY"
+else
+  echo "All jobs are running successfully."
+fi
+----------------------------------------------------
+kubectl get pods -n ns | awk '/taskmanager/{print $1}'| xargs  kubectl delete pod -n ns 
+----------------------------------------------------
