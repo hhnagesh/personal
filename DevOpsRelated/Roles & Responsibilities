@@ -1,0 +1,19 @@
+* Used to do deployment activity in all environment. (dev, qa, uat and prod)
+
+* We are using Maven build tool (java project)
+
+* For CI/CD purpose we are using jenkins, in jenkins we are created scripted pipeline for all services (stages: aws stage- awslogin, git stage- gitlogin and pulling code from repository, Build stage- buildcode and converting code into images, Docker login stage- pushing image into ECR repository, Kubernetes stage- getting image from ECR repository and deploying).
+
+* we are using grafana for monitoring purpose - in grafana we used to check CPU and memory utilization, if any VM(server) above threshold(red zone) we used to cleanup data or we will increase the Space.
+
+* we are using AWS cloud, here we have created EKS cluster, IAM roles, S3 bucket, ECR repository, Autoscalling, AMI, ELB, VPC and RDS services.
+
+* Every quater we perform patching activity (yum update)
+
+* If any user not able to login VM(Server), we used to troubleshoot in VM level (first we will check password and account expiry date then we will troubleshoot)
+
+* we are using JIRA ticketing tool.
+
+* we are using ELK Wazuh for alerting purpose (if anyone hit wrong password we will get a mail, if any user install or remove any package we will get a mail i used to monitor this emails)
+
+* Have a good knowledge in Linux and Shell script.
