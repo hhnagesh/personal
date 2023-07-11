@@ -1,0 +1,70 @@
+Kubernetes Architecture:
+
+Kubernetes is an open-source platform for automating deployment, scaling, and management of containerized applications. The Kubernetes architecture consists of a set of components that work together to provide a platform for deploying, scaling, and operating application containers:
+
+API Server: The API Server is the core component that exposes the Kubernetes API and provides a centralized configuration store for all other components.
+
+etcd: etcd is a distributed key-value store that acts as a data store for the cluster. It is used to store configuration data and cluster state.
+
+Controller Manager: The Controller Manager is responsible for monitoring the state of the cluster and making necessary adjustments to ensure that the desired state is achieved.
+
+Scheduler: The Scheduler is responsible for scheduling containers to run on available nodes in the cluster.
+
+Kubelet: The Kubelet is a small agent that runs on each node in the cluster and is responsible for ensuring that containers are running and healthy.
+
+Container Runtime: The Container Runtime is responsible for running containers on nodes and is typically Docker, but can also be runC, Containerd, or CRI-O.
+
+kubectl: kubectl is the command-line tool used to interact with a Kubernetes cluster.
+
+These components work together to provide a platform for deploying, scaling, and operating containers.
+-------------------------------------------------------------------------------------------------------
+What is Kubernetes?
+-------------------
+Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. It provides a framework for running and coordinating containers across a cluster of nodes.
+
+What are the key components of a Kubernetes cluster?
+-------------------------------------------------
+The key components of a Kubernetes cluster include:
+Master Node: Manages the cluster and coordinates operations.
+Worker Nodes: Run containers and execute tasks assigned by the master.
+etcd: Distributed key-value store for cluster state.
+kubelet: Agent running on each worker node, responsible for managing containers.
+kube-proxy: Manages network communication for services.
+Controller Manager: Monitors and manages controllers that regulate cluster behavior.
+Scheduler: Assigns pods to worker nodes based on resource availability and constraints.
+
+What is a Pod in Kubernetes?
+---------------------------
+A Pod is the smallest and most basic unit in Kubernetes. It represents a single instance of a running process within the cluster. A Pod can contain one or more containers that share the same network namespace, IP address, and storage volumes.
+
+What is the purpose of a Deployment in Kubernetes?
+-------------------------------------------------
+A Deployment is a Kubernetes resource that manages the rollout and scaling of applications. It ensures the desired number of replicas (Pods) are running and handles updates and rollbacks of application versions. Deployments also provide fault tolerance and self-healing capabilities.
+
+Explain the role of a Service in Kubernetes.
+------------------------------------------
+A Service is an abstract way to expose an application running in a set of Pods to network traffic. It provides a stable IP address and DNS name for accessing the Pods. Services enable load balancing, discovery, and communication between different parts of an application or with external clients.
+
+What is a Kubernetes Namespace?
+-------------------------------
+A Kubernetes Namespace provides a virtual cluster within a physical cluster. It allows for resource isolation, organization, and management of multiple applications or teams within the same Kubernetes cluster. Namespaces provide a way to partition and scope resources to avoid naming conflicts.
+
+How does Kubernetes handle scaling?
+---------------------------------
+Kubernetes supports both horizontal and vertical scaling:
+Horizontal Scaling: It can automatically scale the number of replicas (Pods) based on defined metrics or through manual configuration.
+Vertical Scaling: It supports scaling individual Pods by changing the allocated CPU or memory resources.
+
+Explain Kubernetes Rolling Update and Rolling Back.
+-------------------------------
+Rolling Update: It is a strategy used by Kubernetes to perform updates without any downtime. It gradually replaces old instances of Pods with new ones, ensuring a smooth transition.
+Rolling Back: If an issue arises after an update, Kubernetes allows for rolling back to the previous version of an application. It replaces the updated Pods with the earlier versions to revert the application state.
+
+How does Kubernetes handle storage?
+----------------------------
+Kubernetes provides storage management through Persistent Volumes (PV) and Persistent Volume Claims (PVC). PVs represent physical storage resources, and PVCs are requests for a specific amount of storage. Kubernetes can dynamically provision and bind PVs to PVCs, allowing Pods to use persistent storage.
+
+What is a Kubernetes Operator?
+--------------------------------
+A Kubernetes Operator is an extension of the Kubernetes API that adds domain-specific knowledge and custom behavior to the cluster. Operators enable automation and management of complex applications by defining custom resources and controllers. They simplify the deployment and operation of stateful applications in Kubernetes.
+----------------------------------
